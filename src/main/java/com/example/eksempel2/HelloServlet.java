@@ -13,25 +13,22 @@ public class HelloServlet extends HttpServlet {
         message = "This is the servlet. Welcome";
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-
-        // Hello
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //request.getRequestDispatcher("page1").forward(request, response);
+        String firstname = request.getParameter("firstname");
         PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
+        out.println(firstname);
+
+        request.setAttribute("firstname", firstname);
+        request.getRequestDispatcher("name.jsp").forward(request, response);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-
-        // Hello
+        //request.getRequestDispatcher("page1").forward(request, response);
         PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
+        out.println(message);
     }
 
     public void destroy() {
